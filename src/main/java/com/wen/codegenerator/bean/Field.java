@@ -8,43 +8,43 @@ package com.wen.codegenerator.bean;
  */
 public class Field {
     // 字段名
-    private String filedName;
+    private String variableName;
     // 字段名首字母大写
-    private String filedNameUpperFirstChar;
+    private String variableNameUpperFirstChar;
     // 字段类型
-    private String filedType;
+    private String variableType;
     // 字段注释
-    private String filedRemarks;
+    private String variableRemarks;
 
-    public String getFiledName() {
-        return filedName;
+    public String getVariableName() {
+        return variableName;
     }
 
-    public void setFiledName(String filedName) {
-        this.filedName = filedName;
+    public void setVariableName(String variableName) {
+        this.variableName = variableName;
     }
 
-    public String getFiledNameUpperFirstChar() {
-        return filedNameUpperFirstChar;
+    public String getVariableNameUpperFirstChar() {
+        return variableNameUpperFirstChar;
     }
 
-    public void setFiledNameUpperFirstChar(String filedNameUpperFirstChar) {
-        this.filedNameUpperFirstChar = filedNameUpperFirstChar;
+    public void setVariableNameUpperFirstChar(String variableNameUpperFirstChar) {
+        this.variableNameUpperFirstChar = variableNameUpperFirstChar;
     }
 
-    public String getFiledType() {
-        return filedType;
+    public String getVariableType() {
+        return variableType;
     }
 
-    public void setFiledType(String filedType) {
-        this.filedType = filedType;
+    public void setVariableType(String variableType) {
+        this.variableType = variableType;
     }
 
-    public String getFiledRemarks() {
-        return filedRemarks;
+    public String getVariableRemarks() {
+        return variableRemarks;
     }
 
-    public void setFiledRemarks(String filedRemarks) {
-        this.filedRemarks = filedRemarks;
+    public void setVariableRemarks(String variableRemarks) {
+        this.variableRemarks = variableRemarks;
     }
 }

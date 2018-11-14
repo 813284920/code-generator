@@ -67,7 +67,7 @@ public class FieldUtil {
      * @return
      * @author wxy
      */
-    public static String TableNameToClassName(String tableName) {
+    public static String tableNameToClassName(String tableName) {
         StringBuilder className = new StringBuilder();
         String[] words = tableName.split("_");
         if (words != null && words.length > 0) {
