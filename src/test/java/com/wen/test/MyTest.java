@@ -1,6 +1,6 @@
 package com.wen.test;
 
-import com.wen.codegenerator.util.GenerateCode;
+import com.wen.codegenerator.util.CodeGeneration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import java.sql.SQLException;
 @ContextConfiguration(locations = "classpath:application.xml")
 public class MyTest {
     @Autowired
-    private GenerateCode generateCode;
+    private CodeGeneration codeGeneration;
 
     @Test
     public void test1() throws SQLException {
-        generateCode.generate();
+        codeGeneration.generate();
     }
 }
