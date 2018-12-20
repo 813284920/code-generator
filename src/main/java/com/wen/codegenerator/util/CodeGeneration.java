@@ -23,19 +23,39 @@ import java.util.Set;
 
 @Component
 public class CodeGeneration {
+    @Autowired
+    private BaseDataUtils baseDataUtils;
+    @Autowired
+    private FreeMarkerUtil freeMarkerUtil;
+
     private String tableName = "third_auth";
 
-
     public void generate() throws SQLException {
-        Set<String> fileTypes = new HashSet<>();
+
+
+        List<String> fileTypes = new ArrayList<>();
         fileTypes.add("dto");
         fileTypes.add("model");
         // 判断是要生成什么文件
         if (fileTypes.contains("dto") ) {
-
+            // 获取数据表元数据
+            List<Field> fieldList = baseDataUtils.getMetadataToField(tableName, true);
+            // 生成DTO文件
+            MyClass myClass = new MyClass();
+            myClass.setClassName(FieldUtil.tableNameToClassName(tableName) + "DTO");
+            myClass.setSuffix(".java");
+            myClass.setFields(fieldList);
+            freeMarkerUtil.createFile(myClass);
         }
         if (fileTypes.contains("model")) {
-
+            // 获取数据表元数据
+            List<Field> fieldList = baseDataUtils.getMetadataToField(tableName, false);
+            // 生成DTO文件
+            MyClass myClass = new MyClass();
+            myClass.setClassName(FieldUtil.tableNameToClassName(tableName));
+            myClass.setSuffix(".java");
+            myClass.setFields(fieldList);
+            freeMarkerUtil.createFile(myClass);
         }
         if (fileTypes.contains("mapper")) {
 
@@ -52,22 +72,5 @@ public class CodeGeneration {
         if (fileTypes.contains("dao")) {
 
         }
-
-        String className = FieldUtil.toUpperFirstLetter(FieldUtil.tableNameToClassName(tableName)) + "DTO";
-
-        MyClass myClass = new MyClass();
-        myClass.setClassName(className);
-        myClass.setFields(fieldList);
-        myClass.setPackagePath("com.wen.codegenerator.dto");
-
-
-        File targetPath = new File("E:"+File.separator+"workspace"+File.separator+"code-generator"+File.separator+
-                "src"+File.separator+"main"+File.separator+"java"+File.separator+"com"+File.separator+"wen"+File.separator+
-                "codegenerator"+File.separator+"dto"+File.separator+"" + className + ".java");
-
-        createFile(templatePath, targetPath, myClass);
-
-        System.out.println(myClass.getFields().size());
-
     }
 }

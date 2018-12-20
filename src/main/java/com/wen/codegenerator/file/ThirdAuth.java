@@ -1,6 +1,12 @@
-package com.wen.codegenerator.dto;
+package com.wen.codegenerator.file;
 
-public class ThirdAuthDTO {
+/**
+*
+*
+* @author
+* @date 2018-11-16 10:25:23
+*/
+public class ThirdAuth {
     // PK
     private String id;
     // appid
@@ -21,75 +27,76 @@ public class ThirdAuthDTO {
     private Long update_time;
 
     public String getId() {
-        return id;
+    return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+    this.id = id;
     }
 
     public String getAppid() {
-        return appid;
+    return appid;
     }
 
     public void setAppid(String appid) {
-        this.appid = appid;
+    this.appid = appid;
     }
 
     public String getName() {
-        return name;
+    return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+    this.name = name;
     }
 
     public String getSecret_key() {
-        return secret_key;
+    return secret_key;
     }
 
     public void setSecret_key(String secret_key) {
-        this.secret_key = secret_key;
+    this.secret_key = secret_key;
     }
 
     public Integer getType() {
-        return type;
+    return type;
     }
 
     public void setType(Integer type) {
-        this.type = type;
+    this.type = type;
     }
 
     public Boolean getDeletec() {
-        return deletec;
+    return deletec;
     }
 
     public void setDeletec(Boolean deletec) {
-        this.deletec = deletec;
+    this.deletec = deletec;
     }
 
     public String getRemark() {
-        return remark;
+    return remark;
     }
 
     public void setRemark(String remark) {
-        this.remark = remark;
+    this.remark = remark;
     }
 
     public Long getCreate_time() {
-        return create_time;
+    return create_time;
     }
 
     public void setCreate_time(Long create_time) {
-        this.create_time = create_time;
+    this.create_time = create_time;
     }
 
     public Long getUpdate_time() {
-        return update_time;
+    return update_time;
     }
 
     public void setUpdate_time(Long update_time) {
-        this.update_time = update_time;
+    this.update_time = update_time;
     }
+
 
 }

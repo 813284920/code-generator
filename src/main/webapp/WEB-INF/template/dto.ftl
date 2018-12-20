@@ -6,6 +6,6 @@ package ${packagePath};
 * @author
 * @date ${.now}
 */
-public class ${className}DTO {
+public class ${className} {
     <#include "bean.ftl">
 }

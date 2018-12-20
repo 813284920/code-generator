@@ -29,32 +29,59 @@ public class FieldUtil {
      * @return
      * @author wxy
      */
-    public static String ColumnTypeToFiledType(String columnType) {
+    public static String ColumnTypeToFiledType(String columnType, Boolean isPackagingClass) {
         String filedType = null;
         columnType = columnType.toLowerCase();
-        switch (columnType) {
-            case "varchar":
-                filedType = "String";
-                break;
-            case "char":
-                filedType = "String";
-                break;
-            case "int":
-                filedType = "Integer";
-                break;
-            case "bigint":
-                filedType = "Long";
-                break;
-            case "tinyint":
-                // 0:false,1:true
-                filedType = "Boolean";
-                break;
-            case "double":
-                filedType = "Double";
-                break;
-            case "date":
-                filedType = "Date";
-                break;
+        if (isPackagingClass) {
+            switch (columnType) {
+                case "varchar":
+                    filedType = "String";
+                    break;
+                case "char":
+                    filedType = "String";
+                    break;
+                case "int":
+                    filedType = "Integer";
+                    break;
+                case "bigint":
+                    filedType = "Long";
+                    break;
+                case "tinyint":
+                    // 0:false,1:true
+                    filedType = "Boolean";
+                    break;
+                case "double":
+                    filedType = "Double";
+                    break;
+                case "date":
+                    filedType = "Date";
+                    break;
+            }
+        } else {
+            switch (columnType) {
+                case "varchar":
+                    filedType = "String";
+                    break;
+                case "char":
+                    filedType = "String";
+                    break;
+                case "int":
+                    filedType = "int";
+                    break;
+                case "bigint":
+                    filedType = "long";
+                    break;
+                case "tinyint":
+                    // 0:false,1:true
+                    filedType = "boolean";
+                    break;
+                case "double":
+                    filedType = "double";
+                    break;
+                case "date":
+                    filedType = "Date";
+                    break;
+            }
         }
 
         return filedType;

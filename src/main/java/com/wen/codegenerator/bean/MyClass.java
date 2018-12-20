@@ -12,6 +12,7 @@ public class MyClass {
     private String className;
     private List<Field> fields;
     private String packagePath;
+    private String suffix;
 
     public String getClassName() {
         return className;
@@ -35,5 +36,13 @@ public class MyClass {
 
     public void setPackagePath(String packagePath) {
         this.packagePath = packagePath;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 }

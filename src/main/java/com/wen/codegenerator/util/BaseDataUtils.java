@@ -2,6 +2,8 @@ package com.wen.codegenerator.util;
 
 import com.wen.codegenerator.bean.Field;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -18,18 +20,12 @@ import java.util.List;
  * @author 温欣悦
  * @date 2018/11/14
  */
+@Component
 public class BaseDataUtils {
     @Autowired
-    private static DataSource dataSource;
-    private static Connection connection;
+    private DataSource dataSource;
 
-    static {
-        try {
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    private static Connection connection;
 
 
     /**
@@ -39,7 +35,13 @@ public class BaseDataUtils {
      * @return 元数据转换为的Java属性
      * @author wxy
      */
-    private List<Field> getMetadataToField(String tableName) {
+    public List<Field> getMetadataToField(String tableName, Boolean isPackageClass) {
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         // 封装数据库字段数据
         List<Field> fieldList = new ArrayList<Field>();
 
@@ -66,7 +68,7 @@ public class BaseDataUtils {
                 Field field = new Field();
                 field.setVariableName(columnName);
                 field.setVariableNameUpperFirstChar(FieldUtil.toUpperFirstLetter(columnName));
-                field.setVariableType(FieldUtil.ColumnTypeToFiledType(typeName));
+                field.setVariableType(FieldUtil.ColumnTypeToFiledType(typeName, isPackageClass));
                 field.setVariableRemarks(remarks);
 
                 fieldList.add(field);
