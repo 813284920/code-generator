@@ -1,6 +1,5 @@
-package com.wen.codegenerator.util;
+package com.wen.codegenerator.template.util;
 
-import java.util.List;
 
 /**
  * 操作字段的工具类
@@ -9,27 +8,47 @@ import java.util.List;
  * @date 2018/11/13
  */
 public class FieldUtil {
+
     /**
-     * 将字符串首字母变为大写
+     * 将字段名转换为JavaBean的属性名的格式
      *
-     * @param str
-     * @return
+     * @param fieldName 数据库字段名
+     * @param isCamel   属性名是否为驼峰命名规则。true=是，属性名首字母小写；false=不是，属性名首字母大写。
      * @author wxy
      */
-    public static String toUpperFirstLetter(String str) {
-        String uppserLetter = str.substring(0, 1).toUpperCase();
-        String otherstring = str.substring(1);
-        return uppserLetter + otherstring;
+    public static String field2Attribute(String fieldName, boolean isCamel) {
+        fieldName = fieldName.toLowerCase();
+        String[] fieldNamePieces = fieldName.split("_");
+        StringBuilder attributeNameSB = new StringBuilder();
+        for (int i = 0; i < fieldNamePieces.length; i++) {
+            String fieldNamePiece = fieldNamePieces[i];
+            int indexNotUp = fieldNamePieces.length;
+            if (isCamel) {
+                indexNotUp = 0;
+            }
+            if (i != indexNotUp) {
+                char[] chars = fieldNamePiece.toCharArray();
+                if (chars[0] >= 'a' && chars[0] <= 'z') {
+                    chars[0] = (char) (chars[0] - 32);
+                }
+                attributeNameSB.append(new String(chars));
+            } else {
+                attributeNameSB.append(fieldNamePiece);
+            }
+
+        }
+        return attributeNameSB.toString();
     }
 
     /**
      * 将数据库中的列字段类型转换成Java数据类型
      *
      * @param columnType
+     * @param isPackagingClass
      * @return
      * @author wxy
      */
-    public static String ColumnTypeToFiledType(String columnType, Boolean isPackagingClass) {
+    public static String fieldType2AttributeType(String columnType, Boolean isPackagingClass) {
         String filedType = null;
         columnType = columnType.toLowerCase();
         if (isPackagingClass) {
@@ -85,26 +104,5 @@ public class FieldUtil {
         }
 
         return filedType;
-    }
-
-    /**
-     * 将数据库表名转换为类名
-     *
-     * @param tableName
-     * @return
-     * @author wxy
-     */
-    public static String tableNameToClassName(String tableName) {
-        StringBuilder className = new StringBuilder();
-        String[] words = tableName.split("_");
-        if (words != null && words.length > 0) {
-            for (String word : words) {
-                className.append(FieldUtil.toUpperFirstLetter(word));
-            }
-        } else {
-            className.append(FieldUtil.toUpperFirstLetter(tableName));
-        }
-
-        return className.toString();
     }
 }

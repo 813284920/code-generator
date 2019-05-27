@@ -1,9 +1,8 @@
-package com.wen.codegenerator.util;
+package com.wen.codegenerator.template.util;
 
-import com.wen.codegenerator.bean.Field;
+import com.wen.codegenerator.template.model.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -20,31 +19,36 @@ import java.util.List;
  * @author 温欣悦
  * @date 2018/11/14
  */
+
+/**
+ *
+ *
+ * @author 温欣悦
+ * @date 2019/5/14
+ */
 @Component
 public class BaseDataUtils {
+
     @Autowired
     private DataSource dataSource;
 
     private static Connection connection;
 
-
     /**
-     * 获取指定数据表的元数据并将其封装为Java类属性
+     * 封装元素据
      *
-     * @param tableName 数据表名
-     * @return 元数据转换为的Java属性
+     * @param tableName 表名
+     * @return
      * @author wxy
      */
-    public List<Field> getMetadataToField(String tableName, Boolean isPackageClass) {
+    public List<Field> getFields(String tableName) {
         try {
             connection = dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         // 封装数据库字段数据
-        List<Field> fieldList = new ArrayList<Field>();
-
+        List<Field> fieldList = new ArrayList<>();
         DatabaseMetaData metaData = null;
         try {
             metaData = connection.getMetaData();
@@ -55,26 +59,24 @@ public class BaseDataUtils {
         ResultSet resultSet = null;
         try {
             resultSet = metaData.getColumns(null, "%", tableName, "%");
-
             while (resultSet.next()) {
-                // 列名
-                String columnName = resultSet.getString("COLUMN_NAME");
+                // 字段名
+                String fieldName = resultSet.getString("COLUMN_NAME");
                 // 类型
                 String typeName = resultSet.getString("TYPE_NAME");
                 // 注释
                 String remarks = resultSet.getString("REMARKS");
-
                 // 封装为属性类
                 Field field = new Field();
-                field.setVariableName(columnName);
-                field.setVariableNameUpperFirstChar(FieldUtil.toUpperFirstLetter(columnName));
-                field.setVariableType(FieldUtil.ColumnTypeToFiledType(typeName, isPackageClass));
-                field.setVariableRemarks(remarks);
-
+                field.setFieldName(fieldName);
+                field.setAttributeName(FieldUtil.field2Attribute(fieldName, true));
+                field.setAttributeMethodName(FieldUtil.field2Attribute(fieldName, false));
+                field.setAttributeType(FieldUtil.fieldType2AttributeType(typeName, false));
+                field.setAttributeTypePackage(FieldUtil.fieldType2AttributeType(typeName, true));
+                field.setRemarks(remarks);
                 fieldList.add(field);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return fieldList;
     }
