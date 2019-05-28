@@ -24,7 +24,7 @@ public class CodeGeneration {
     /**
      * 要生成的文件类型[dto|service]
      */
-    private static final FileType[] fileTypes = {FileType.DTO, FileType.MODEL};
+    private static final FileType[] fileTypes = {FileType.DTO, FileType.MODEL, FileType.SERVICEIMPL};
 
     public void generate() {
         for (String tableName : tableNames) {
@@ -38,6 +38,8 @@ public class CodeGeneration {
                 param.setFileName(fileName + fileType.getFileNameSuffix());
                 param.setFieldList(fieldList);
                 param.setPackagePath(fileType.getPackagePath());
+                param.setTableName4J(FieldUtil.field2Attribute(tableName, false));
+                param.setTableName(tableName);
                 freeMarkerUtil.createFile(fileType, param);
             }
         }

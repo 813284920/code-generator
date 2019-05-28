@@ -6,7 +6,7 @@ public enum FileType {
     MODEL("", "model.ftl", "com.wen.codegenerator.model"),
     SERVICE("Service", "service.ftl", "com.wen.codegenerator.service"),
     CONTROLLER("Controller", "controller.ftl", "com.wen.codegenerator.controller"),
-    SERVICEIMPL("ServiceImpl", "serviceImpl.ftl", "com.wen.codegenerator.service.impl"),
+    SERVICEIMPL("ServiceImpl", "service_impl.ftl", "com.wen.codegenerator.service.impl"),
     DAO("Dao", "dao.ftl", "com.wen.codegenerator.dao")
     ;
 
