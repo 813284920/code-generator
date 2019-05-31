@@ -28,13 +28,16 @@ public class CodeGeneration {
 
     public void generate() {
         for (String tableName : tableNames) {
+            Param param = new Param();
             // 获取文件名
             String fileName = FieldUtil.field2Attribute(tableName, false);
-
+            // 获取数据表主键
+            String primaryKey = baseDataUtils.getPrimaryKey(tableName);
+            param.setPrimaryKey(primaryKey);
+            param.setPrimaryKey(FieldUtil.field2Attribute(primaryKey, false));
             // 获取数据表元数据
             List<Field> fieldList = baseDataUtils.getFields(tableName);
             for (FileType fileType : fileTypes) {
-                Param param = new Param();
                 param.setFileName(fileName + fileType.getFileNameSuffix());
                 param.setFieldList(fieldList);
                 param.setPackagePath(fileType.getPackagePath());

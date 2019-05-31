@@ -11,7 +11,7 @@ public class ${fileName} {
 <#list fieldList as field>
 
     /**
-     * ${field.remarks}
+     * ${field.comment}
      */
     private ${field.attributeTypePackage} ${field.attributeName};
 </#list>
@@ -27,4 +27,3 @@ public class ${fileName} {
 </#list>
 </#if>
 }
-

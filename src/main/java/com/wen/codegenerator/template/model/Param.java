@@ -29,6 +29,16 @@ public class Param {
      */
     private List<Field> fieldList;
 
+    /**
+     * 表主键（数据库格式）
+     */
+    private String primaryKey;
+
+    /**
+     * 表主键（Java格式，首字母大写）
+     */
+    private String primaryKey4J;
+
     public String getPackagePath() {
         return packagePath;
     }
@@ -67,5 +77,21 @@ public class Param {
 
     public void setFieldList(List<Field> fieldList) {
         this.fieldList = fieldList;
+    }
+
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public String getPrimaryKey4J() {
+        return primaryKey4J;
+    }
+
+    public void setPrimaryKey4J(String primaryKey4J) {
+        this.primaryKey4J = primaryKey4J;
     }
 }

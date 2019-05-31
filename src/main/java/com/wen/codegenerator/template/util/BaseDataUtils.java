@@ -55,17 +55,16 @@ public class BaseDataUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // 获取数据库元数据
-        ResultSet resultSet = null;
+        // 获取表数据
         try {
-            resultSet = metaData.getColumns(null, "%", tableName, "%");
-            while (resultSet.next()) {
+            ResultSet columnsResultSet = metaData.getColumns(null, "%", tableName, "%");
+            while (columnsResultSet.next()) {
                 // 字段名
-                String fieldName = resultSet.getString("COLUMN_NAME");
+                String fieldName = columnsResultSet.getString("COLUMN_NAME");
                 // 类型
-                String typeName = resultSet.getString("TYPE_NAME");
+                String typeName = columnsResultSet.getString("TYPE_NAME");
                 // 注释
-                String remarks = resultSet.getString("REMARKS");
+                String remarks = columnsResultSet.getString("REMARKS");
                 // 封装为属性类
                 Field field = new Field();
                 field.setFieldName(fieldName);
@@ -73,11 +72,36 @@ public class BaseDataUtils {
                 field.setAttributeMethodName(FieldUtil.field2Attribute(fieldName, false));
                 field.setAttributeType(FieldUtil.fieldType2AttributeType(typeName, false));
                 field.setAttributeTypePackage(FieldUtil.fieldType2AttributeType(typeName, true));
-                field.setRemarks(remarks);
+                field.setComment(remarks);
                 fieldList.add(field);
             }
         } catch (SQLException e) {
         }
         return fieldList;
+    }
+
+    public String getPrimaryKey(String tableName) {
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DatabaseMetaData metaData = null;
+        try {
+            metaData = connection.getMetaData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // 获取表主键
+        try {
+            String catalog = connection.getCatalog();
+            ResultSet primaryKeyResultSet = metaData.getPrimaryKeys(catalog, null, tableName);
+            while (primaryKeyResultSet.next()) {
+                return primaryKeyResultSet.getString("COLUMN_NAME");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

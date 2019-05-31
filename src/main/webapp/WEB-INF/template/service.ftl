@@ -17,33 +17,21 @@ import com.wen.codegenerator.model.${tableNameU};
 public class ${fileName} {
     <#assign tableNameU = tableName4J?cap_first>
     <#assign tableNameL = tableName4J?uncap_first>
-    <#assign pKeyU = primaryKey4J?cap_first>
-    <#assign pKeyL = primaryKey4J?uncap_first>
-    <#assign daoName = tableNameL + "Dao">
-    <#assign dtoNameU = tableNameU + "DTO">
-    <#assign dtoNameL = tableNameL + "DTO">
 
     private final Logger LOGGER = LoggerFactory.getLogger(${fileName}.class);
 
     @Autowired
-    private ${tableNameU}Dao ${daoName};
+    private ${tableNameU}Dao ${tableNameL}Dao;
 
-    private ${dtoNameU} model2DTO(${dtoNameU} model) {
-        if (model == null) {
-            return null;
-        }
-
-        ${dtoNameU} dto = new ${dtoNameU}();
+    private ${tableNameU}DTO model2DTO(${tableNameU} model) {
+        ${tableNameU}DTO dto = new ${tableNameU}DTO();
     <#list fieldList as field>
         dto.set${field.attributeMethodName}(model.get${field.attributeMethodName}());
     </#list>
         return dto;
     }
-    private ${tableNameU} dto2Model(${dtoNameU} dto) {
-        if (dto == null) {
-            return null;
-        }
 
+    private ${tableNameU} dto2Model(${tableNameU}DTO dto) {
         ${tableNameU} model = new ${tableNameU}();
     <#list fieldList as field>
     <#if field.attributeTypePackage == "Integer">
@@ -60,50 +48,6 @@ public class ${fileName} {
     </#list>
         return model;
     }
-
-   /**
-    * 添加
-    *
-    * @author wxy
-    */
-    public String add${tableNameU}(${dtoNameU} ${dtoNameL}) {
-        if (StringUtil.isEmpty(${dtoNameL}.get${pKeyU})) {
-            ${dtoNameL}.set${pKeyU}(CommonUtil.UUID());
-        }
-        int rowChanges = ${daoName}.add${tableNameU}(${dtoNameL});
-        if (rowChanges <= 0) {
-            return null;
-        } else {
-            return ${dtoNameL}.get${pKeyU};
-        }
-    }
-
-   /**
-    * 根据 ${pKeyL} 删除
-    *
-    * @return 删除成功的条数
-    * @author wxy
-    */
-    public Integer remove${tableNameU}By{tableNameU}(String ${pKeyL}) {
-        int rowChanges = ${daoName}.add${tableNameU}(${dtoNameL});
-        if (rowChanges <= 0) {
-            return null;
-        } else {
-            return ${dtoNameL}.get${pKeyU};
-        }
-    }
-
-
-    /**
-     * 根据 ${pKeyL} 查询
-     *
-     * @author wxy
-     */
-    public ${tableNameU}DTO query${tableNameU}By${pKeyU}(String ${pKeyL}) {
-        return model2DTO(${daoName}.query${tableNameU}By${pKeyU}(${pKeyL}));
-    }
-
-
 
 
 }

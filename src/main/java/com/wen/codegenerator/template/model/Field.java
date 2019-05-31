@@ -36,7 +36,7 @@ public class Field {
     /**
      * 字段&属性的注释
      */
-    private String remarks;
+    private String comment;
 
     public String getFieldName() {
         return fieldName;
@@ -70,12 +70,12 @@ public class Field {
         this.attributeType = attributeType;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public String getComment() {
+        return comment;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getAttributeTypePackage() {
